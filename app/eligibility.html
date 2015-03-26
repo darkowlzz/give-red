@@ -1,0 +1,44 @@
+<div layout="row" layout-sm="column" layout-align-gt-md="center start" layout-margin layout-fill-gt-md layout-padding-gt-md>
+  <!-- Container #2 -->
+  <md-content id="description" flex flex-gt-md="30" class="md-whiteframe-z5">
+    <p>{{ eligibilityNote }}</p>
+  </md-content>
+
+  <!-- Container #3 -->
+  <md-content id="content" flex flex-gt-md="55" class="md-whiteframe-z5">
+    <div ng-hide="submitted">
+      <h2>Find your eligibility</h2>
+      <div layout="column">
+        <form name="bloodForm">
+          <div ng-repeat="group in groups">
+            <md-radio-group ng-model="data[group.model]">
+              <p>{{ group.question }}</p>
+              <md-radio-button value="true">Yes</md-radio-button>
+              <md-radio-button value="false">No</md-radio-button>
+            </md-radio-group>
+          </div>
+        </form>
+      </div>
+
+      <section layout="column" layout-align="center center">
+        <md-button ng-click="submit()" ng-hide="loading" layout-align="center center" class="md-raised md-accent">
+          Give Red
+        </md-button>
+        <div ng-show="error" class="formError">
+          <ng-md-icon icon="error" style="fill:red" size="20"></ng-md-icon>
+          <span>The form is incomplete</span>
+        </div>
+        <md-progress-circular ng-show="loading" class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+      </section>
+    </div>
+
+    <div ng-show="submitted">
+      <div ng-show="result">
+        <p>You are eligible.</p>
+      </div>
+      <div ng-hide="result">
+        <p>You are not eligible.</p>
+      </div>
+    </div>
+  </md-content>
+</div>

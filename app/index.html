@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" ng-app="giveBlood">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="css/giveblood.css">
+  </head>
+
+  <body ng-controller="MainCtrl">
+    <div class="ground" layout="column">
+      <!-- Container #1 -->
+      <md-toolbar class="md-tall md-primary" layout="row" layout-align="center center">
+        <div layout-padding>
+          <img ng-src="step.png" height="100" width="100">
+        </div>
+        <div layout-padding>
+          <h1 class="mainTitle" >Give-Red</h1>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <section class="ground" layout="row" layout-align="center center">
+          <md-button ng-click="go('/')">Home</md-button>
+          <md-button ng-click="go('/eligibility')">Eligibility</md-button>
+          <md-button ng-click="go('/about')">About</md-button>
+        </section>
+      </md-content>
+
+      <div ng-view></div>
+
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="js/giveblood.js"></script>
+  </body>
+</html>
