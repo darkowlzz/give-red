@@ -1,6 +1,6 @@
 var giveBlood = angular.module('giveBlood', [
-                              'ngRoute', 'ngMaterial', 'ngMdIcons'
-                              ]);
+                               'ngRoute', 'ngMaterial', 'ngMdIcons'
+                               ]);
 
 giveBlood.controller('MainCtrl', [
   '$scope', '$route', '$routeParams', '$location', '$mdMedia',
@@ -13,8 +13,8 @@ giveBlood.controller('MainCtrl', [
 
 
 giveBlood.controller('GiveBloodCtrl', [
-  '$scope', '$routeParams', '$timeout',
-  function ($scope, $routeParams, $timeout) {
+  '$scope', '$routeParams', '$timeout', '$http',
+  function ($scope, $routeParams, $timeout, $http) {
     $scope.description = 'This is the description part of the page. ' +
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat interdum felis sed interdum. Pellentesque ultrices est eget placerat tempor. Curabitur iaculis porttitor mauris. Sed dictum mattis est, sit amet tempor leo placerat id.';
 
@@ -36,24 +36,19 @@ giveBlood.controller('GiveBloodCtrl', [
     */
 
     $scope.submit = function () {
-      console.log('submitting', $scope.user);
       var result = validate($scope.user);
-      console.log('result', result);
 
       if (result) {
         $scope.error = false;
         $scope.loading = true;
 
-        $timeout(function () {
-          console.log('timeout over!');
-          $scope.submitted = true;
-        }, 4000);
-        /*
-        $http.post()
-          .success(function () {
+        $http.post('/submit', { data: $scope.user })
+          .success(function (o) {
             $scope.submitted = true;
+          })
+          .error(function (data, status, headers, config) {
+            console.log('Error in posting');
           });
-        */
       } else {
         $scope.error = true;
       }
@@ -104,11 +99,8 @@ giveBlood.controller('EligibilityCtrl', [
     $scope.result = false;
 
     $scope.submit = function () {
-      console.log('submitting', $scope.data);
-
       var result = isEligible($scope.data);
 
-      console.log('result is', result);
       if (result == 'error') {
         $scope.error = true;
       } else {
