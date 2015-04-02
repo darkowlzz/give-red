@@ -9,7 +9,7 @@ var express = require('express'),
 var port = process.env.PORT || 3000; //port set to 3000
 
 var uristring = process.env.MONGODB_URI || '';
-                
+
 mongoose.connect(uristring, function (err, res) {
   if (err) {
     console.log('Error connecting to db');
@@ -24,10 +24,16 @@ var donorSchema = new mongoose.Schema({
   email: { type: String },
   phone: { type: String },
   address: { type: String },
-  group: { type: String }
+  group: { type: String },
+  donId: { type: Number }
 });
-
 var Donor = mongoose.model('donors', donorSchema);
+
+var statusSchema = new mongoose.Schema({
+  name: { type: String },
+  count: { type: Number }
+});
+var Status = mongoose.model('status', statusSchema);
 
 //app specific configurations
 //==================================================
@@ -53,13 +59,24 @@ router.post('/submit', function (req, res) {
     address: data.address || '',
     group: data.group || ''
   });
-  aDonor.save(function (err, obj) {
-    if (err) {
-      console.log('Error on save!');
-    } else {
-      console.log('Saving', obj);
-      res.json(obj);
-    }
+
+  Status.findOne({name: 'bloodDonors'}, function (err, stat) {
+    aDonor.donId = stat.count + 1;
+    stat.count = aDonor.donId;
+    stat.save(function (err) {
+      if (err) {
+        console.log('error in updating');
+      } else {
+        aDonor.save(function (err, obj) {
+          if (err) {
+            console.log('Error on save!');
+          } else {
+            console.log('Saving', obj);
+            res.json(obj);
+          }
+        });
+      }
+    });
   });
 });
 
