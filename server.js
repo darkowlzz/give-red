@@ -8,7 +8,7 @@ var express = require('express'),
 
 var port = process.env.PORT || 3000; //port set to 3000
 
-var uristring = process.env.MONGODB_URI || '';
+var uristring = process.env.MONGODB_URI || 'mongodb://localhost/step';
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
