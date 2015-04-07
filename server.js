@@ -25,7 +25,7 @@ var donorSchema = new mongoose.Schema({
   phone: { type: String },
   address: { type: String },
   group: { type: String },
-  donId: { type: Number }
+  id: { type: Number }
 });
 var Donor = mongoose.model('donors', donorSchema);
 
@@ -61,8 +61,8 @@ router.post('/submit', function (req, res) {
   });
 
   Status.findOne({name: 'bloodDonors'}, function (err, stat) {
-    aDonor.donId = stat.count + 1;
-    stat.count = aDonor.donId;
+    aDonor.id = stat.count + 1;
+    stat.count = aDonor.id;
     stat.save(function (err) {
       if (err) {
         console.log('error in updating');
