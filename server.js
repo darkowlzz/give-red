@@ -25,7 +25,9 @@ var donorSchema = new mongoose.Schema({
   phone: { type: String },
   address: { type: String },
   group: { type: String },
-  id: { type: Number }
+  modifiedOn: { type: Date },
+  id: { type: Number },
+  done: { type: Boolean }
 });
 var Donor = mongoose.model('donors', donorSchema);
 
@@ -57,7 +59,9 @@ router.post('/submit', function (req, res) {
     email: data.email || '',
     phone: data.phone || '',
     address: data.address || '',
-    group: data.group || ''
+    group: data.group || '',
+    modifiedOn: new Date,
+    done: false
   });
 
   Status.findOne({name: 'bloodDonors'}, function (err, stat) {

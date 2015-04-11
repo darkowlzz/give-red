@@ -23,7 +23,7 @@
           <div>
             <md-input-container>
               <label>Age</label>
-              <input required name="age" type="number" ng-model="user.age" placeholder="25">
+              <input required name="age" type="number" min="18" max="99" ng-model="user.age" placeholder="25">
               <div ng-messages="bloodForm.age.$error">
                 <div ng-message="required">This is required.</div>
               </div>
